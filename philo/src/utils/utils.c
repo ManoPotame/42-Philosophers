@@ -6,11 +6,20 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 15:23:11 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/07/15 17:00:24 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/07/20 17:35:07 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+size_t	get_current_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
 
 /**
  * @brief Funcion that convert ASCII characters to INT digits.
@@ -28,8 +37,8 @@ int	ft_isdigit(int c)
 
 int	ft_atoi(const char *nptr, t_status *status)
 {
-	int	i;
-	int	result;
+	int		i;
+	long	result;
 
 	if (!nptr)
 		return (0);
@@ -37,20 +46,16 @@ int	ft_atoi(const char *nptr, t_status *status)
 	result = 0;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || (nptr[i] == 32))
 		i++;
-	if (nptr[i] == '-')
-		*status = FAILURE;
-	if (nptr[i] == '+')
-		i++;
-	while (nptr[i])
+	while (nptr[i] && ft_isdigit(nptr[i]) == 0)
 	{
-		if (ft_isdigit(nptr[i]) == 1 || status)
+		result = (result * 10) + nptr[i] - '0';
+		if (result > INT_MAX)
 		{
 			*status = FAILURE;
-			return (-1);
+			return (0);
 		}
-		result = (result * 10) + nptr[i] - '0';
 		i++;
 	}
-	return (result);
+	return ((int)result);
 }
 
