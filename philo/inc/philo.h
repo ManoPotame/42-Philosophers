@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 14:24:24 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/07/20 18:14:58 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/07/24 18:03:29 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef enum e_status
  * @brief
  * @param stop_flag:
  */
-typedef struct	s_program
+typedef struct s_program
 {
 	int				n_philo;
 	int				stop_flag;
@@ -63,10 +63,29 @@ typedef struct	s_program
 	t_status		status;
 }	t_program;
 
+/*---------------------------STRUCT-------------------------------------------*/
+t_status	fill_struct(char **av, t_program *program);
+void		destroy_struct(t_program *program);
+
+/*---------------------------PHILO--------------------------------------------*/
+void		*routine(void *input);
+void		monitoring(t_program *program);
+int			check_stop_flag(t_philo *philo);
 
 /*---------------------------UTILS--------------------------------------------*/
-int		ft_atoi(const char *nptr, t_status *status);
-int		ft_isdigit(int c);
-size_t	get_current_time(void)
+int			ft_atoi(const char *nptr, t_status *status);
+int			ft_isdigit(int c);
+void		*ft_memset(void *s, int c, size_t n);
+int			ft_usleep(size_t milliseconds);
+void		safe_print(const char *str, t_philo *philo);
+size_t		get_current_time(void);
+
+/*---------------------------UTILS PHILO--------------------------------------*/
+void		lock_forks(t_philo *philo);
+void		unlock_forks(t_philo *philo);
+void		think(t_philo *philo);
+
+/*---------------------------ERROR MANAGER------------------------------------*/
+void		error_manager(t_program *program);
 
 #endif

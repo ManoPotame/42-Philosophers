@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 15:23:11 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/07/20 17:35:07 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/07/24 18:11:00 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,35 @@ size_t	get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
+int	ft_usleep(size_t milliseconds)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(500);
+	return (0);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = c;
+		i++;
+	}
+	return (s);
+}
+
 /**
  * @brief Funcion that convert ASCII characters to INT digits.
  *
  * @param nptr The string receves has argument.
  * @return int
  */
-
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
@@ -46,8 +68,13 @@ int	ft_atoi(const char *nptr, t_status *status)
 	result = 0;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || (nptr[i] == 32))
 		i++;
-	while (nptr[i] && ft_isdigit(nptr[i]) == 0)
+	while (nptr[i])
 	{
+		if (ft_isdigit(nptr[i]) == 1)
+		{
+			*status = FAILURE;
+			return (0);
+		}
 		result = (result * 10) + nptr[i] - '0';
 		if (result > INT_MAX)
 		{
@@ -58,4 +85,3 @@ int	ft_atoi(const char *nptr, t_status *status)
 	}
 	return ((int)result);
 }
-
