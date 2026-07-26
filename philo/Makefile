@@ -15,7 +15,7 @@ UTILS_DIR := utils/
 SRC_FILES := $(SRC_DIR)main.c \
 			 $(SRC_DIR)$(UTILS_DIR)utils.c \
 			 $(SRC_DIR)$(UTILS_DIR)utils_philo.c \
-			 $(SRC_DIR)$(PHILO_DIR)philo.c \
+			 $(SRC_DIR)$(PHILO_DIR)philo_routine.c \
 			 $(SRC_DIR)$(PHILO_DIR)philo_monitoring.c \
 			 $(SRC_DIR)$(PHILO_DIR)philo_struct.c \
 			 $(SRC_DIR)$(PHILO_DIR)error_manager.c \

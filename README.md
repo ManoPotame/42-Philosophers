@@ -1,6 +1,6 @@
 *This project has been created as part of the 42 curriculum by mcrenn.*
 
-#  Philosophers
+# 🍝 Philosophers
 
 ## 🤔 Description:
 First, the principle of philosophers: \
@@ -15,6 +15,20 @@ The goal of this project is project is to print the state of every philosopher i
 - Philo is thinking (The philo is waiting a fork).
 - Philo died (trigger end of progam because a philosoher died).
 
+### How it Work ?
+First, the parsing. The parser check the input:
+- If the total number of inputs are less than 4 or more than 6, the program return an error.
+- If the number of philos are more than 200, the program return an error.
+- If a timestamp is less than 0, the program return an error.
+- If any input contain a character which isn't a digit, the program return an error.
+
+All errors trigered are print in the error_manager() function.
+
+Other than that, the parser fill the structure of philosopher. It also initialise the [mutexes](https://fr.wikipedia.org/wiki/Exclusion_mutuelle).
+
+Once the structure is filled, for each philosophers existed, the program will create a [thread](https://fr.wikipedia.org/wiki/Thread_(informatique)) with a the [pthread_create](https://man7.org/linux/man-pages/man3/pthread_create.3.html) command. Each thread has a routine() function, which print in the terminal "is eating", "is sleeping" and "is thinking" while none of the philosopher die.
+
+Meanwhile the threads are working, the monitoring function check if a philosopher die or if all philosophers are eating all the number of meal they have to eat.
 
 ## 📏 Instructions:
 To use this project, you must clone my [repository](https://github.com/ManoPotame/42-Philosophers):
@@ -50,3 +64,5 @@ Note that the program support a maximum of 200 philosophers.
 ## 📚 Ressources:
 - Understanding the [thread](https://en.wikipedia.org/wiki/Thread_(computing)) and [multithreading](https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)) system.
 - The [guide](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2) I followed to do this project.
+
+### A special thanks for the help of all my mates !
